@@ -1,0 +1,56 @@
+[package]
+name = "egui_plot"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[package.metadata.docs.rs]
+all-features = true
+
+[features]
+default = ["glow"]
+
+
+# persistence = ["eframe/persistence", "egui/persistence", "serde"]
+# web_screen_reader = ["eframe/web_screen_reader"]                  # experimental
+
+glow = ["eframe/glow"]
+wgpu = ["eframe/wgpu", "bytemuck"]
+
+
+[dependencies]
+chrono = "0.4.31"
+rand = "0.8"
+eframe = { version = "0.22.0", default-features = false }
+egui = { version = "0.22.0", features = [
+  "extra_debug_asserts",
+  "log",
+] }
+egui_demo_lib = { version = "0.22.0", features = [
+  "chrono",
+] }
+egui_glow = "0.22.0"
+log = { version = "0.4", features = ["std"] }
+bytemuck = { version = "1.7.1", optional = true }
+rfd = { version = "0.12.0", optional = true }
+# feature "http":
+ehttp = { version = "0.3.0", optional = true }
+image = { version = "0.24", optional = true, default-features = false, features = [
+  "jpeg",
+  "png",
+] }
+poll-promise = { version = "0.3.0", optional = true, default-features = false }
+
+# feature "persistence":
+serde = { version = "1", optional = true, features = ["derive"] }
+
+# native:
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+env_logger = "0.10"
+
+# web:
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "=0.2.87"
+wasm-bindgen-futures = "0.4"
+web-sys = "0.3"
