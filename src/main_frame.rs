@@ -5,6 +5,7 @@ use egui::mutex::Mutex;
 use egui_demo_lib::is_mobile;
 
 use crate::tab_app::MyTabApp;
+use crate::aom::AomApp;
 
 #[derive(Clone, Copy, Debug)]
 #[must_use]
@@ -18,8 +19,9 @@ enum Command {
 #[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
 #[cfg_attr(feature = "serde", serde(default))]
 pub struct State {
-    demo: DemoApp,
+    // demo: DemoApp,
     app_test: MyTabApp,
+    aom: AomApp,
     // #[cfg(feature = "http")]
     // http: crate::apps::HttpApp,
     // #[cfg(feature = "image_viewer")]
@@ -78,15 +80,20 @@ impl WrapApp {
 
     fn apps_iter_mut(&mut self) -> impl Iterator<Item = (&str, Anchor, &mut dyn eframe::App)> {
         let mut vec = vec![
+            // (
+            //     "✨ Demos",
+            //     Anchor::Demo,
+            //     &mut self.state.demo as &mut dyn eframe::App,
+            // ),
             (
-                "✨ Demos",
-                Anchor::Demo,
-                &mut self.state.demo as &mut dyn eframe::App,
-            ),
-            (
-                "✨ app_test",
+                "通感数据绘图",
                 Anchor::AppTest,
                 &mut self.state.app_test as &mut dyn eframe::App,
+            ),
+            (
+                "验证终端AOM",
+                Anchor::AomApp,
+                &mut self.state.aom as &mut dyn eframe::App,
             ),
             // (
             //     "🖹 EasyMark editor",
@@ -401,8 +408,9 @@ impl eframe::App for DemoApp {
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
 enum Anchor {
-    Demo,
+    // Demo,
     AppTest,
+    AomApp,
     // #[cfg(feature = "http")]
     // Http,
     // #[cfg(feature = "image_viewer")]
@@ -443,7 +451,7 @@ impl From<Anchor> for egui::WidgetText {
 
 impl Default for Anchor {
     fn default() -> Self {
-        Self::Demo
+        Self::AppTest
     }
 }
 

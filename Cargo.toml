@@ -44,6 +44,19 @@ poll-promise = { version = "0.3.0", optional = true, default-features = false }
 
 # feature "persistence":
 serde = { version = "1", optional = true, features = ["derive"] }
+crossbeam = "0.8"
+packet = "0.1.4"
+pcap-file = "2.0.0"
+serde_json = "1.0"
+gtp-rs = { version="0.1.0", git="https://github.com/ErvinsK/gtp-rs"}
+wintun = "0.2.1"
+subprocess= "0.2.9"
+winapi = { version = "0.3", features = ["synchapi", "winbase", "winerror", "ipexport", "iphlpapi", "handleapi"] }
+encoding = "0.2.33"
+pnet = "0.34.0"
+serde_yaml = "0.9.10"
+rustc-serialize = "0.3.24"
+spin_sleep = "1.1.1"
 
 # native:
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]

@@ -1,0 +1,6 @@
+{
+"pcAddr" : "172.26.100.99",
+"armAddr" : "172.26.100.8",
+"logLevel" : "debug",
+"pcUDPCtrlPort" : "8080"
+}
