@@ -138,8 +138,8 @@ impl AomApp {
     let global_itti_trx_tag_list_ctl = self.global_itti_trx_tag_list.clone();
             //Thread Controller
             thread::spawn(move ||{
-                let socket: UdpSocket = UdpSocket::bind(format!("0.0.0.0:{}", config["pcUDPCtrlPort"].as_string().unwrap())).expect("msg");
-                info!("Thread Controller Started");
+                let socket: UdpSocket = UdpSocket::bind(format!("0.0.0.0:{}", config["pcUDPDPPort"].as_string().unwrap())).expect("msg");
+                info!("Thread Controller Started 0.0.0.0:{}",config["pcUDPDPPort"].as_string().unwrap());
                 while running_ctrl.load(Ordering::Relaxed) {
                     let mut buf = [0; 4096];
                     match socket.recv_from(&mut buf) {

@@ -21,7 +21,7 @@ enum Command {
 pub struct State {
     // demo: DemoApp,
     app_test: MyTabApp,
-    aom: AomApp,
+    // aom: AomApp,
     // #[cfg(feature = "http")]
     // http: crate::apps::HttpApp,
     // #[cfg(feature = "image_viewer")]
@@ -90,11 +90,11 @@ impl WrapApp {
                 Anchor::AppTest,
                 &mut self.state.app_test as &mut dyn eframe::App,
             ),
-            (
-                "验证终端AOM",
-                Anchor::AomApp,
-                &mut self.state.aom as &mut dyn eframe::App,
-            ),
+            // (
+            //     "验证终端AOM",
+            //     Anchor::AomApp,
+            //     &mut self.state.aom as &mut dyn eframe::App,
+            // ),
             // (
             //     "🖹 EasyMark editor",
             //     Anchor::EasyMarkEditor,
@@ -410,7 +410,7 @@ impl eframe::App for DemoApp {
 enum Anchor {
     // Demo,
     AppTest,
-    AomApp,
+    // AomApp,
     // #[cfg(feature = "http")]
     // Http,
     // #[cfg(feature = "image_viewer")]
