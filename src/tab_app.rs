@@ -58,7 +58,8 @@ impl MyTabApp {
             let config = Json::from_str(&cfg_data).unwrap();
             let port = config["logLevel"].as_string().unwrap();
         thread::spawn(move ||{
-            let socket = UdpSocket::bind(format!("0.0.0.0:{}", config["pcUDPCtrlPort"].as_string().unwrap())).unwrap();
+            let socket = UdpSocket::bind(format!("0.0.0.0:{}", config["pcUDPDPPort"].as_string().unwrap())).unwrap();
+            print!("0.0.0.0:{}\n", config["pcUDPDPPort"].as_string().unwrap() );
             println!("Begin socket");
             while running.load(Ordering::Relaxed) {
                 let mut buf = [0; 16424];
@@ -270,6 +271,30 @@ impl MyTabApp {
         // Arrows::new(PlotPoints::new(max_point), PlotPoints::new(max_point_1))
 
     }
+
+    fn get_delay(&self) -> String {
+        let time = self.time;
+        let mut rng = rand::thread_rng();
+        let mut plot_point = self.plot_point.clone();
+        let mut fig2: [f32; 2050];
+        let mut a;
+        {
+            loop {
+                let b = plot_point.try_read();
+                match b {
+                    Ok(mut b) => {
+                        a = format!("传输时延 {} ", b.clone().latency);
+                        break;
+                    },
+                    Err(_) => {
+                        continue;
+                    },
+                }
+            }
+        }
+        let c: String = format!("{}", a);
+        c
+    }
 }
 
 impl eframe::App for MyTabApp {
@@ -337,6 +362,10 @@ impl eframe::App for MyTabApp {
                 // Remember the position of the plot
                 plot_rect = Some(inner.response.rect);
             });
+            ui.vertical_centered_justified(|ui| {
+                ui.heading(self.get_delay());
+            });
+ 
         });
 
     }
